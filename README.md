@@ -129,6 +129,26 @@ The primary steps to convert RGB colors of point clouds into SH representation a
 
 In summary, SH provides a method to represent point cloud attributes using spherical harmonic basis functions, allowing the representation of both global and local features of attributes such as color and normals. Therefore, it is well-suited as a feature descriptor for point clouds.
 
+From 'https://github.com/graphdeco-inria/gaussian-splatting/blob/2eee0e26d2d5fd00ec462df47752223952f6bf4e/gaussian_renderer/__init__.py'
+
+This code implements the rendering process for a Gaussian model:
+
+1. Create a zero tensor `screenspace_points` to obtain gradients for 2D means.
+
+2. Set up rasterization configurations, including image size, view frustum parameters, and more.
+
+3. Create a `GaussianRasterizer` for rasterization.
+
+4. Provide parameters for the 3D Gaussian model, such as mean, variance, features, etc. You can also precompute covariance and color on the Python side to accelerate rendering.
+
+5. The rasterization process will output the rendered image and the radius of Gaussians in screen space.
+
+6. Filter out invisible Gaussians based on the radius.
+
+7. Return the rendering result, screen space points, visibility filtering, and radius information.
+
+This code effectively implements the rendering process from a 3D Gaussian model to a 2D image and computes auxiliary information for subsequent model optimization.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
