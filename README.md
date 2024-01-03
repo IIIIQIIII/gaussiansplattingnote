@@ -83,6 +83,21 @@ Setting these attributes as trainable parameters is a crucial step in building a
 
 In summary, this indeed converts the coordinates and attributes of the point cloud into trainable parameters, preparing the model for optimization.
 
+In the `create_from_pcd()` method, the point cloud coordinates `xyz` and RGB colors are extracted from `BasicPointCloud`, and the colors are transformed into features represented in spherical harmonics (SH) form:
+
+```
+fused_color = RGB2SH(torch.tensor(np.asarray(pcd.colors)).float().cuda())
+features = torch.zeros((fused_color.shape[0], 3, (self.max_sh_degree + 1) ** 2)).float().cuda()
+features[:, :3, 0 ] = fused_color
+```
+
+The SH features consist of two parts: `_features_dc` and `features_rest`:
+
+- `_features_dc` contains the low-frequency components corrresponding to the first 3 SH coefficients.
+
+- `_features_rest` contains the high-frequency SH coefficients beyond the low-frequency components.
+
+So, it can be observed that this model uses the SH transform of the point cloud as a feature representation and processes it into low-frequency and high-frequency components. SH transformation is well-suited for representing both color and geometric features of point clouds.
 
 ```Cite
 @Article{kerbl3Dgaussians,
