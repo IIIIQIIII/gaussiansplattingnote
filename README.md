@@ -58,3 +58,41 @@ The main steps of this method are as follows:
 8. Print the number of points and complete the initialization of the GaussianModel object.
 
 This step is crucial for transforming the original point cloud into an optimizable Gaussian model. It initializes various parameters such as point cloud features and transformation parameters and converts them into Parameters with gradients enabled, laying the foundation for subsequent model optimization and training.
+
+In the `create_from_pcd()` method, the coordinates, features, scaling, rotation, and opacity are all initialized as trainable parameters.
+
+The specific implementation in the code is as follows:
+
+```python
+self._xyz = nn.Parameter(fused_point_cloud.requires_grad_(True)) 
+
+self._features_dc = nn.Parameter(features[:,:,0:1].transpose(1, 2).contiguous().requires_grad_(True))
+
+self._features_rest = nn.Parameter(features[:,:,1:].transpose(1, 2).contiguous().requires_grad_(True))
+
+self._scaling = nn.Parameter(scales.requires_grad_(True))
+
+self._rotation = nn.Parameter(rots.requires_grad_(True))
+
+self._opacity = nn.Parameter(opacities.requires_grad_(True))
+```
+
+Here, coordinates, features, scaling, rotation, and opacity are wrapped in nn.Parameter objects with requires_grad=True set. This means that these variables will become model parameters, and during the training process, the computation graph will automatically track the gradients of these parameters for backpropagation and optimization.
+
+Setting these attributes as trainable parameters is a crucial step in building an optimizable Gaussian model. Subsequently, you can update these parameters by adjusting the learning rate, choosing an optimizer, and using optimization techniques, allowing the model to gradually approximate the target point cloud distribution.
+
+In summary, this indeed converts the coordinates and attributes of the point cloud into trainable parameters, preparing the model for optimization.
+
+
+```Cite
+@Article{kerbl3Dgaussians,
+      author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
+      title        = {3D Gaussian Splatting for Real-Time Radiance Field Rendering},
+      journal      = {ACM Transactions on Graphics},
+      number       = {4},
+      volume       = {42},
+      month        = {July},
+      year         = {2023},
+      url          = {https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/}
+}
+```
