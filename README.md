@@ -171,6 +171,10 @@ In more detail:
 
 The core idea is to leverage the projection properties of Gaussian distributions to project 3D Gaussians onto a 2D plane through transformation, enabling image synthesis.
 
+In three-dimensional space, an iso-surface (iso-probability density surface) based on a Gaussian distribution will be an ellipsoid, not a two-dimensional ellipse. The center of this ellipsoid will be located at the mean of the three-dimensional Gaussian distribution, while its shape, size, and orientation will be determined by the covariance matrix.
+
+In three-dimensional space, the covariance matrix has three eigenvalues and corresponding eigenvectors. These eigenvalues and eigenvectors represent the lengths and directions of the three principal axes of the ellipsoid. Larger eigenvalues correspond to longer extensions along the respective axes, and the directions of the eigenvectors determine the orientation of the ellipsoid in space.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
