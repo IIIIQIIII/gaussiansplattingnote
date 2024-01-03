@@ -34,3 +34,27 @@ From 'https://github.com/graphdeco-inria/gaussian-splatting/blob/main/scene/gaus
 - add_densification_stats(): Adds densification statistics.
 
 3. This model is mainly used to represent Gaussian distribution point clouds, including coordinates, features, transformations, and more. It can load point clouds for modeling, perform operations like learning rate adjustment, pruning, densification, and is a trainable and optimizable Gaussian model.
+
+`create_from_pcd()`
+
+The method `create_from_pcd()` is an important method in the GaussianModel class, and it is used to create a GaussianModel object from point cloud data.
+
+The main steps of this method are as follows:
+
+1. Convert the input point cloud into a Tensor and store it in `fused_point_cloud`.
+
+2. Calculate the RGB colors of the point cloud and convert them into a spherical harmonics (SH) representation, which is then stored in `fused_color`.
+
+3. Initialize a feature tensor `features` filled with zeros and store the DC components from `fused_color` in `features[:,:,0:1]`.
+
+4. Compute the squared Euclidean distances between points as an initial scale parameter, with a shape of `[number of points, 3]`.
+
+5. Initialize rotation as a quaternion filled with ones, indicating no rotation, with a shape of `[number of points, 4]`.
+
+6. Initialize opacity as 0.1, with a shape of `[number of points, 1]`.
+
+7. Convert coordinates, features, scaling, rotation, and opacity into Parameters with `require_grad=True` to make them amenable to training optimization.
+
+8. Print the number of points and complete the initialization of the GaussianModel object.
+
+This step is crucial for transforming the original point cloud into an optimizable Gaussian model. It initializes various parameters such as point cloud features and transformation parameters and converts them into Parameters with gradients enabled, laying the foundation for subsequent model optimization and training.
