@@ -100,6 +100,7 @@ The SH features consist of two parts: `_features_dc` and `features_rest`:
 So, it can be observed that this model uses the SH transform of the point cloud as a feature representation and processes it into low-frequency and high-frequency components. SH transformation is well-suited for representing both color and geometric features of point clouds.
 
 `SH`
+
 Spherical harmonics (SH) are a set of basics functions defined on the surface of a sphere, often used to represent attributes of 3D scenes such as the color and normals of point clouds.
 
 The main characteristics of SH include:
