@@ -149,6 +149,28 @@ This code implements the rendering process for a Gaussian model:
 
 This code effectively implements the rendering process from a 3D Gaussian model to a 2D image and computes auxiliary information for subsequent model optimization.
 
+The rendering process from a 3D Gaussian model to a 2D image can be summarized as follows:
+
+1. Calculate the 2D coordinates (means2D) on the image plane where each 3D Gaussian projects under the current viewpoint.
+
+2. Based on the 3D variance-covariance matrix of each Gaussian, calculate the 2D variance-covariance matrix after projection onto the image plane.
+
+3. Utilize 2D means and 2D variance-covariance matrices to draw the contours of each Gaussian on the image.
+
+4. Combine all the Gaussians to compose the entire scene image.
+
+In more detail:
+
+- The 3D coordinates (means3D) of each point are transformed using the model-view projection matrix to obtain screenspace_points, which are the 2D means (means2D).
+
+- If the 3D covariance matrix cov3D_precomp is precomputed, it is used directly; otherwise, it is inferred based on scaling and rotation information.
+
+- The `GaussianRasterizer` applies Gaussian filtering based on means2D and the variance-covariance matrices, resulting in the rendered image (rendered_image).
+
+- Additionally, the radii of each Gaussian on the screen are provided to determine visibility.
+
+The core idea is to leverage the projection properties of Gaussian distributions to project 3D Gaussians onto a 2D plane through transformation, enabling image synthesis.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
