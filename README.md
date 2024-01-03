@@ -175,6 +175,42 @@ In three-dimensional space, an iso-surface (iso-probability density surface) bas
 
 In three-dimensional space, the covariance matrix has three eigenvalues and corresponding eigenvectors. These eigenvalues and eigenvectors represent the lengths and directions of the three principal axes of the ellipsoid. Larger eigenvalues correspond to longer extensions along the respective axes, and the directions of the eigenvectors determine the orientation of the ellipsoid in space.
 
+```python
+# Rasterize visible Gaussians to image, obtain their radii (on screen). 
+    rendered_image, radii = rasterizer(
+        means3D = means3D,
+        means2D = means2D,
+        shs = shs,
+        colors_precomp = colors_precomp,
+        opacities = opacity,
+        scales = scales,
+        rotations = rotations,
+        cov3D_precomp = cov3D_precomp)
+```
+
+This code's purpose is to convert (rasterize) three-dimensional objects, possibly ellipsoids, represented as Gaussian distributions into two-dimensional images. This process involves projecting from three-dimensional space to the two-dimensional image space, as well as potentially handling shading and opacity. Here's a potential interpretation of each parameter:
+
+1. **means3D**: These are the means of the three-dimensional Gaussian distributions, representing the center positions of each Gaussian distribution (or ellipsoid) in three-dimensional space.
+
+2. **means2D**: These might be the means of the three-dimensional Gaussian distributions projected onto the two-dimensional image plane.
+
+3. **shs**: These could represent Spherical Harmonics coefficients, which might be used to describe lighting or color characteristics for each Gaussian distribution.
+
+4. **colors_precomp**: These could be precomputed color values used for shading each Gaussian distribution on the image.
+
+5. **opacities**: These are the opacities of each Gaussian distribution, possibly used to control their visibility in the final image.
+
+6. **scales**: These are scale factors used to adjust the size of each Gaussian distribution.
+
+7. **rotations**: These represent the rotations of each Gaussian distribution, possibly in the form of quaternions, rotation matrices, or Euler angle representations.
+
+8. **cov3D_precomp**: This is the precomputed covariance matrix of the three-dimensional Gaussian distributions, determining the shape and orientation of each ellipsoid.
+
+The function returns two values:
+
+- **rendered_image**: This is the rasterized two-dimensional image, containing all visible Gaussian distributions.
+- **radii**: These might be the radii or sizes of each Gaussian distribution on the image, potentially used for further processing or analysis.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
