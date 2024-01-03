@@ -99,6 +99,35 @@ The SH features consist of two parts: `_features_dc` and `features_rest`:
 
 So, it can be observed that this model uses the SH transform of the point cloud as a feature representation and processes it into low-frequency and high-frequency components. SH transformation is well-suited for representing both color and geometric features of point clouds.
 
+`SH`
+Spherical harmonics (SH) are a set of basics functions defined on the surface of a sphere, often used to represent attributes of 3D scenes such as the color and normals of point clouds.
+
+The main characteristics of SH include:
+
+- SH is a set of orthogonal basis functions on the spherical surface that can represent any function defined on the sphere.
+
+- By linearly combining SH basis functions, one can approximate spherical functions.
+
+- SH basis functions are associated with spherical coordinate systems and can represent the intensity of a signal in different directions.
+
+- SH exhibits rotation invariance, meaning that the representation remains the same under coordinate system rotations.
+
+- Low-order SH corresponds to low-frequency signals, while high-order SH corresponds to high-frequency details.
+
+- Attributes of 3D point clouds, such as color and normals, can be represented using SH, where low-order SH represents global properties and high-order SH captures details.
+
+The primary steps to convert RGB colors of point clouds into SH representation are as follows:
+
+1. Transform RGB colors into a new coordinate system, such as world coordinates or local coordinates.
+
+2. Convert colors from Cartesian coordinates to spherical coordinates.
+
+3. Based on the direction of points, calculate the intensities corresponding to different orders of SH basis functions as new features.
+
+4. Low-order SH features represent the overall color distribution, while high-order features capture finer details.
+
+In summary, SH provides a method to represent point cloud attributes using spherical harmonic basis functions, allowing the representation of both global and local features of attributes such as color and normals. Therefore, it is well-suited as a feature descriptor for point clouds.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
