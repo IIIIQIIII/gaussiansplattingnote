@@ -211,6 +211,26 @@ The function returns two values:
 - **rendered_image**: This is the rasterized two-dimensional image, containing all visible Gaussian distributions.
 - **radii**: These might be the radii or sizes of each Gaussian distribution on the image, potentially used for further processing or analysis.
 
+From 'https://github.com/graphdeco-inria/gaussian-splatting/blob/main/train.py'
+
+- This code implements the neural network training process for Gaussian body rendering.
+
+- It defines two main functions: `training()` for the training loop and `prepare_output_and_logger()` for initializing the output directory and logging.
+
+- The `training()` function includes key training loop steps such as dataset loading, rendering, loss computation, and parameter updates.
+
+- The rendering process involves calling the `render()` function, which generates images based on camera parameters, Gaussian body parameters, and rendering settings.
+
+- The loss calculation includes both L1 loss and SSIM loss components.
+
+- During training, the Gaussian body's order is gradually increased, and sparseification of the Gaussian body is performed after a certain number of iterations.
+
+- Periodic evaluations on the test dataset are conducted during training, and the training process is visualized using TensorBoard.
+
+- After training, the Gaussian body parameters are saved.
+
+In summary, this is a training script for a Gaussian body rendering neural network that encompasses complete functionalities for training, testing, visualization, and model saving.
+
 ```Cite
 @Article{kerbl3Dgaussians,
       author       = {Kerbl, Bernhard and Kopanas, Georgios and Leimk{\"u}hler, Thomas and Drettakis, George},
